@@ -1,0 +1,43 @@
+{# mainpage/templates/mainpage/base.html #}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Best Site{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'mainpage/css/style.css' %}">
+    {# Здесь можно подключить свои CSS-файлы: mainpage/static/mainpage/css/... #}
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'home' %}">Главная</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}">Профиль</a>
+                <!-- Вставляем форму logout всю в 1 строку -->
+                <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">Выйти ({{ user.username }})</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Войти</a>
+                <a href="{% url 'register' %}">Регистрация</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <hr>
+
+    <main>
+        {% block content %}
+        <!-- сюда встраиваются конкретные страницы -->
+        {% endblock %}
+    </main>
+
+    <hr>
+
+    <footer>
+        <p>&copy; 2025 Best</p>
+    </footer>
+</body>
+</html>

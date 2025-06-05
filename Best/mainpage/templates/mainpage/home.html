@@ -1,0 +1,18 @@
+{# mainpage/templates/mainpage/home.html #}
+{% extends 'mainpage/base.html' %}
+
+{% block title %}Главная — Best{% endblock %}
+
+{% block content %}
+  <h1>Это главная страница</h1>
+  {% if user.is_authenticated %}
+      <p>Вы уже вошли как <strong>{{ user.username }}</strong>.</p>
+      <p>Перейдите в ваш <a href="{% url 'profile' %}">профиль</a>.</p>
+  {% else %}
+      <p>Чтобы продолжить, вам необходимо:</p>
+      <ul>
+        <li><a href="{% url 'login' %}">Войти</a>,</li>
+        <li><a href="{% url 'register' %}">Зарегистрироваться</a>.</li>
+      </ul>
+  {% endif %}
+{% endblock %}
