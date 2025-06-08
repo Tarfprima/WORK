@@ -18,4 +18,7 @@ urlpatterns = [
     # ==== Профиль пользователя ====
     # Переход на профиль после логина/регистрации
     path('profile/', views.profile, name='profile'),
+    # ==== Домашняя работа ====
+    path('myfetch/', views.myfetch, name='myfetch'),
+    
 ]

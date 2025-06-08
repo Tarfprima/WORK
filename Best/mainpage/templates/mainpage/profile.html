@@ -1,4 +1,3 @@
-{# mainpage/templates/mainpage/profile.html #}
 {% extends 'mainpage/base.html' %}
 
 {% block title %}Профиль — Best{% endblock %}
@@ -10,10 +9,10 @@
   <p>Дата регистрации: <strong>{{ user.date_joined|date:"d.m.Y H:i" }}</strong></p>
   <p>
     <a href="{% url 'home' %}">На главную</a>
-    <!-- Кнопка «Выйти» здесь есть и в base.html, но дублировать не проблема -->
     <form method="post" action="{% url 'logout' %}" style="display:inline;">
       {% csrf_token %}
       <button type="submit">Выйти</button>
     </form>
+    
   </p>
 {% endblock %}

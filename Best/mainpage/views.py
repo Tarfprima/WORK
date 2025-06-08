@@ -41,3 +41,32 @@ def profile(request):
     Просто страница с приветствием и ссылками «Главная» и «Выйти».
     """
     return render(request, 'mainpage/profile.html')
+
+
+def myfetch(request):
+    return render(
+        request,
+        'mainpage/myfetch.html'
+    )
+
+
+# ==== Домашняя работа новый код (подключение к серверу) ====
+
+import random
+def myfetch(request):
+    print(request.GET)  # {'count': ['6']}
+    context = {
+        'questions': []
+    }
+    if 'count' in request.GET and 'maxval' in request.GET:  # проверка наличия обоих параметров
+        count = int(request.GET['count'])
+        maxval = int(request.GET['maxval'])
+        for i in range(count):
+            a = random.randint(2, maxval)
+            b = random.randint(2, maxval)    
+            context['questions'].append((a, b))
+    return render(
+        request,
+        'mainpage/myfetch.html',
+        context
+    )
