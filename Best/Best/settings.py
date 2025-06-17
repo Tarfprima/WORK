@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'App',
-    'mainpage'
+    'mainpage',
+    'arenda',
 ]
 
 MIDDLEWARE = [
@@ -76,12 +76,12 @@ WSGI_APPLICATION = 'Best.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'shop',
-        'USER': 'manager',
-        # 'PASSWORD': 'warfare888',
-        # 'HOST': 'localhost',
-        # 'PORT': '5432',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'shop', # ИМЯ БД
+        'USER': 'manager', # ИМЯ ПОЛЬЗОВАТЕЛЯ
+        # 'PASSWORD': 'warfare888', - УЖЕ ЕСТЬ В PGPASS
+        # 'HOST': 'localhost', - УЖЕ ЕСТЬ В PGPASS
+        # 'PORT': '5432', - УЖЕ ЕСТЬ В PGPASS
     }
 }
 
@@ -120,8 +120,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
-# (Эти взял из сайта которую вы скинули в тг про django)
+STATIC_URL = 'static/' # Статик можно дополнительно настроивать по желанию.
+
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/profile/'    # после успешного логина/регистрации — на /profile/ 
 LOGOUT_REDIRECT_URL = '/'           # после логаута — обратно на главный. 
