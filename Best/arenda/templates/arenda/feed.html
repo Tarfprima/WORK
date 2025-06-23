@@ -6,7 +6,9 @@
 {% comment %} <!-- временный коммент - начало -->
 <script src="{% static 'arenda/js/hello.js' %}"></script> <!-- Путь к js файлу --> 
 {% endcomment %} <!-- временный коммент - конец -->
-<img src="{% static 'arenda/photos/1.png' %}"> <!-- Путь к картинке --> 
+{% with "arenda/photos/"|add:uid|add:".png" as avatar %}
+<img src="{% static arenda %}"> <!-- Путь к картинке --> 
+{% endwith %}
 <h1>Все записи: "{{author}}"</h1> 
 <p>Тест работоспособности для начала:</p>
 {{all_posts}} 

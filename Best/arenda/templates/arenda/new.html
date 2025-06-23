@@ -1,0 +1,5 @@
+<form method="post"> <!-- для отправки пост запроса -->
+    {% csrf_token %}
+    {{ new_blog_post_form }} <!-- переменная из функции "publish" из файла views.py -->
+    <input type="submit" value="Опубликовать">
+</form>

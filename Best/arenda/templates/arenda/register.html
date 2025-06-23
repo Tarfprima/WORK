@@ -1,0 +1,7 @@
+<h1>Хотите зарегистрироваться?</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <p><input type="submit" value="Подписать"></p>
+</form>
+

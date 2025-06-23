@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mainpage',
     'arenda',
 ]
 
@@ -122,9 +121,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/' # Статик можно дополнительно настроивать по желанию.
 
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/profile/'    # после успешного логина/регистрации — на /profile/ 
-LOGOUT_REDIRECT_URL = '/'           # после логаута — обратно на главный. 
+# LOGIN_URL = '/login/'
+# LOGIN_REDIRECT_URL = '/profile/'    # после успешного логина/регистрации — на /profile/ 
+# LOGOUT_REDIRECT_URL = '/'           # после логаута — обратно на главный. 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

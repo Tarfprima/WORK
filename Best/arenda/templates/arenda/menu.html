@@ -1,5 +1,15 @@
 <!-- СТРАНИЦА ДЛЯ ИЗУЧЕНИЯ НАСЛЕДОВАНИЯ ШАБЛОНОВ -->
 <div>
-    <a href="/arenda/2">Главная</a>
-    <a href="/arenda/1">Статьи</a>
-</div> <br>
+    <a href="{% url 'arenda' %}">Главная</a>
+    <a href="{% url 'save_arendas' %}">Создать запись</a>
+    <a href="{% url 'blogpost' 1 %}">Статьи</a>
+    {% if user.is_authenticated %}
+    <form id="logout_form" method="post" action={% url 'logout' %}>
+        {% csrf_token %}
+        <a href="javascript:logout_form.submit()">Выйти, {{user}}?</a>
+    </form>
+    {% else %}
+        <a href={% url 'login' %}>Войти</a>
+    {% endif %}
+    
+</form>
