@@ -4,8 +4,8 @@
 
 {% block content %} <!-- Дериктива block - начало. content - это название этой дерективы. Содержимое этого блока не будет отображатся на странице feed.html, а все что в не это блока, будет отображатся.-->
 <h1>Создайте свой блог!</h1>
-<a href="users/login"><b>Войти</b></a><br>
-<a href="users/register/"><b>Зарегистрироваться</b></a>
+<a href="{% url 'arenda_login' %}"><b>Войти</b></a><br>
+<a href="{% url 'new_register' %}"><b>Зарегистрироваться</b></a>
 {% endblock %} <!-- Дериктива block - конец. -->
 
 <p> Copyright (c) GetArenda {% now "Y" %} </p>

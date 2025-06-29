@@ -1,0 +1,32 @@
+{% load static %}
+<script src={% static 'arenda/js/appointment.js' %} ></script>
+
+<table>
+    <thead>
+        {% for day in days %}
+        <th>{{day.weekday}}</th>
+        {% endfor %}
+    </thead>
+    <tbody>
+        {% for day in days %}
+        <td>
+            <ul>
+                {% for slot in day.slots %}
+                    {% if slot.client %}
+                        <li>{{slot.time}} - {{slot.client}}</li>
+                    {% else %}
+                        <li id={{day.weekday}}>
+                            <input type="hidden" value={{slot.dt}}>
+                            <input
+                                type="button"
+                                value={{slot.time}}
+                                onclick="make_appointment(event)"
+                            >
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </td>
+        {% endfor %}
+    </tbody>
+</table>

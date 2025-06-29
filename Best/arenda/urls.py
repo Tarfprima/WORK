@@ -16,6 +16,11 @@ urlpatterns = [
             template_name='arenda/login.html'), # шаблон
         name='arenda_login'), # {% url name %} - 
     
-    path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'), 
-    path('register/', views.register, name='new_register'),
+    path('logout/',     auth_views.LogoutView.as_view(next_page='/'), name='logout'), 
+    path('register/',   views.register, name='new_register'),
+    path('schedule/',   views.calendar, name='new_calendar'), # для изучения записи 
+    path('data_addr/',  views.data_function), # для изучения feth
+    path('data_page/', views.data_page_rendering), # для изучения feth
+    path('book_appointment/', views.book_appointment, name='book_appointment'), # запись на прием
+    
 ]

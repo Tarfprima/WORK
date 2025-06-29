@@ -1,5 +1,6 @@
 <form method="post"> <!-- для отправки пост запроса -->
     {% csrf_token %}
-    {{ new_blog_post_form }} <!-- переменная из функции "publish" из файла views.py -->
+    {{ new_blog_post_form.as_p }} <!-- переменная из функции "publish" из файла views.py -->
     <input type="submit" value="Опубликовать">
 </form>
+<p><a href="{% url 'arenda' %}">На главную</a></p>

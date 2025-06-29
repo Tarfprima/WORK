@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from . import models # Нужно обратится к базе данных чтобы вывести в feed.html записи добавленные через админку. Чтобы обратиться к базе данных используем "модели" что-бы обратиться к моделям из них надо испортировать наш код. 
-from datetime import datetime # для работы с фильтрами 
+from datetime import datetime, timedelta # для работы с фильтрами и не только
 from . import forms # импортируем forms.py
 from django.contrib.auth.decorators import login_required # будем требовать логин для публикации
-
+from django.http import JsonResponse
 
 def posts(request, **kwargs): # Функция для рендера шаблона т.е размещения информации на странице.
     my_posts = models.Arenda.objects.filter( 
@@ -75,7 +75,143 @@ def register(request):
             return redirect('/')
     return render(
         request,
-        'user/register.html', {
+        'arenda/register.html', {
             'form': user_form        
         }
     )
+
+
+# КАЛЕНДАРЬ 
+def calendar(request):
+    dt = datetime.now()
+    if 'dt' in request.GET:
+        dt = datetime.strptime(
+            request.GET['dt'],
+            '%Y%m%d'
+        )
+    print(dt)
+    return render(
+        request,
+        'arenda/timetable.html',
+        timeslots(dt)
+    )
+
+def timeslots(dt, period = 7, daystart = 8, dayend = 18):
+    result = []
+    dt = datetime(
+        dt.year, dt.month, dt.day
+    )
+    for i in range(period):
+        # Прибавить к дате количество дней, равное i
+        day = {
+            'weekday': dt.strftime('%a'),
+            'slots': []
+        }
+        for h in range(daystart, dayend + 1):
+            dt_h = dt + timedelta(seconds = 3600 * h)
+            day['slots'].append({
+                'time': dt_h.strftime('%H:%M'),
+                'dt':   dt_h.strftime('%Y%m%d%H%M'),
+                'client': ''
+            })
+        result.append(day)
+        # Создать словарь, хранящий день недели и 
+        # Массив слотов, где каждый слот содержит
+        #     время для отображения
+        #     дату и время для записи
+        #     клиента при наличии 
+        dt += timedelta(1)  # timedelta(days=i)
+    return {
+        'days': result
+    } 
+    {
+        'days': [
+            {  # Описание одного дня в нашей неделе
+                'weekday': 'ПН',
+                'slots': [
+                    {
+                        'time': '8:00',
+                         'client': ''
+                    },
+                    {
+                        'time': '9:00',
+                        'client': 'Wera'
+                    },
+                    {
+                        'time': '10:00',
+                        'client': ''
+                    },
+                    {
+                        'time': '11:00',
+                        'client': ''
+                    }
+                ]
+            },
+            {
+                'weekday': 'ВТ',
+                'slots': [
+                    {
+                        'time': '8:00',
+                         'client': ''
+                    },
+                    {
+                        'time': '9:00',
+                        'client': ''
+                    },
+                    {
+                        'time': '10:00',
+                        'client': ''
+                    },
+                    {
+                        'time': '11:00',
+                        'client': ''
+                    }
+                ]
+            },
+            {
+                'weekday': 'СР',
+                'slots': [
+                    {
+                        'time': '8:00',
+                         'client': ''
+                    },
+                    {
+                        'time': '9:00',
+                        'client': ''
+                    },
+                    {
+                        'time': '10:00',
+                        'client': ''
+                    },
+                    {
+                        'time': '11:00',
+                        'client': ''
+                    }
+                ]
+            }
+            ]
+    }
+    
+def data_function(request):
+    return JsonResponse({
+        'param': 25
+    })
+    
+def data_page_rendering(request):
+    return render(
+        request,
+        'arenda/datapage.html'
+    )
+    
+def book_appointment(request):
+    if request.method == 'GET':
+        dt = request.GET.get('dt')
+        if dt and request.user.is_authenticated:
+            try:
+                return JsonResponse({'success': True, 'message': 'Запись создана'})
+            except Exception as e:
+                return JsonResponse({'success': False, 'error': str(e)})
+        else:
+            return JsonResponse({'success': False, 'error': 'Неверные параметры или пользователь не авторизован'})
+    return JsonResponse({'success': False, 'error': 'Метод не поддерживается'})
+

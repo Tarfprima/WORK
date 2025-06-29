@@ -10,3 +10,4 @@ class Arenda(models.Model): # класс в таблице обязательн�
     
     def __str__(self):
         return self.title
+    
