@@ -22,5 +22,6 @@ urlpatterns = [
     path('data_addr/',  views.data_function), # для изучения feth
     path('data_page/', views.data_page_rendering), # для изучения feth
     path('book_appointment/', views.book_appointment, name='book_appointment'), # запись на прием
+    path('edit/<int:post_id>/', views.edit_post, name='edit_post'),
     
 ]

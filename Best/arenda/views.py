@@ -202,6 +202,8 @@ def data_page_rendering(request):
         request,
         'arenda/datapage.html'
     )
+
+# ДОМАШНЕЕ ЗАНИЕ. СОХРАНЕНИЕ В БД ВРЕМЕНИ ЗАПИСИ
     
 def book_appointment(request):
     if request.method == 'GET':
@@ -212,6 +214,34 @@ def book_appointment(request):
             except Exception as e:
                 return JsonResponse({'success': False, 'error': str(e)})
         else:
-            return JsonResponse({'success': False, 'error': 'Неверные параметры или пользователь не авторизован'})
+            return JsonResponse({'success': False, 'error': 'Неверные параметры или ты не авторизован'})
     return JsonResponse({'success': False, 'error': 'Метод не поддерживается'})
 
+# ДОМАШНЕЕ ЗАНИЕ. РЕДАКТИРОВАНИЕ ЗАПИСИ
+# ... existing code ...
+
+def edit_post(request, post_id):
+    """функция для редактирования записи"""
+    try:
+        # Пытаемся найти запись в базе данных по переданному ID
+        post = models.Arenda.objects.get(id=post_id)
+        
+        # Проверяем, что запрос пришел методом POST (отправка формы)
+        if request.method == 'POST':
+            # Получаем значение поля 'title' из формы, если его нет - пустая строка
+            post.title = request.POST.get('title', '')
+            # Получаем значение поля 'text' из формы, если его нет - пустая строка
+            post.text = request.POST.get('text', '')
+            # Сохраняем изменения в базе данных
+            post.save()
+            
+            # Перенаправляем пользователя обратно на страницу с записями этого пользователя
+            return redirect('blogpost', uid=post.user.id)
+        
+        # Если запрос пришел методом GET (просто переход по ссылке), перенаправляем обратно
+        return redirect('blogpost', uid=post.user.id)
+        
+    except models.Arenda.DoesNotExist:
+        # Если запись с таким ID не найдена в базе данных
+        # Перенаправляем на страницу пользователя с ID=1 (обычно админ)
+        return redirect('blogpost', uid=1)
