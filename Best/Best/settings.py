@@ -27,6 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+from secret import TOKEN
+
+# Common Bot Object
+from aiogram import Bot
+BOT = Bot(token=TOKEN)    # Создается объект бота с нашим паролем. Один бот - один экземпляр на токен.
 
 # Application definition
 
